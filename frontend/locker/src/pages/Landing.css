@@ -1,0 +1,99 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Cabin', sans-serif;
+}
+
+/* Page wrapper */
+.landing {
+  min-height: 100vh;
+  background-color: #040403; /* black */
+  background-image:
+    radial-gradient(
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    );
+  background-size: 24px 24px; /* hex-like subtle grid feel */
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Admin button (top-right) */
+.admin-btn {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+
+  background-color: #84ACCE; /* blue */
+  color: #040403;
+  border: none;
+  border-radius: 999px;
+
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  font-family: 'Cabin', sans-serif;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.admin-btn:hover {
+  box-shadow: 0 8px 20px rgba(132, 172, 206, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Center content */
+.center-content {
+  text-align: center;
+}
+
+/* Locker SVG */
+.locker-logo {
+  width: 280px;
+  max-width: 70vw;
+  margin-bottom: 24px;
+}
+
+/* Tagline */
+.tagline {
+  font-family: 'Cabin', sans-serif;
+  font-size: 1rem;
+  color: #FB8537; /* pumpkin */
+  letter-spacing: 0.02em;
+}
+
+/* Student CTA */
+.student-btn {
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: #FB8537; /* pumpkin */
+  color: #040403;
+  border: none;
+  border-radius: 999px;
+
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.student-btn:hover {
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 10px 24px rgba(251, 133, 55, 0.45);
+}
