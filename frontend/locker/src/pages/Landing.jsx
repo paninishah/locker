@@ -1,17 +1,20 @@
+import { useNavigate } from "react-router-dom";
 import "./Landing.css";
 
 export default function Landing() {
+  const navigate = useNavigate();
+
   return (
-    <div className="landing">
+    <div className="app-bg landing">
       {/* Admin button */}
-      <button className="admin-btn">Admin</button>
+      <button className="admin-btn landing-admin">Admin</button>
 
       {/* Center content */}
       <div className="center-content">
         <img
           src="/locker.svg"
-          alt="Locker"
-          className="locker-logo"
+          alt="locker"
+          className="landing-logo"
         />
 
         <p className="tagline">
@@ -20,7 +23,10 @@ export default function Landing() {
       </div>
 
       {/* Student CTA */}
-      <button className="student-btn">
+      <button
+        className="student-btn"
+        onClick={() => navigate("/events")}
+      >
         explore!
       </button>
     </div>
