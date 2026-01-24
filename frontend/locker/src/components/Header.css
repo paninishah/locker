@@ -46,3 +46,12 @@
   font-weight: 500;
   cursor: pointer;
 }
+
+.admin-btn:hover {
+  box-shadow: 0 8px 20px rgba(132, 172, 206, 0.45);
+  transform: translateY(-1px);
+}
+
+.landing-admin {
+  z-index: 30;
+}

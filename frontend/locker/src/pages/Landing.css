@@ -19,6 +19,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  pointer-events: none; /* 🔑 IMPORTANT */
 }
 
 /* LOGO */
@@ -32,6 +34,12 @@
   color: #FB8537;
   font-size: 1rem;
 }
+
+.landing-logo,
+.tagline {
+  pointer-events: none;
+}
+
 
 /* STUDENT BUTTON */
 .student-btn {
