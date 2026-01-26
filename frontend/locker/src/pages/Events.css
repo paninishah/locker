@@ -2,6 +2,32 @@
   padding-top: 140px;
 }
 
-.events-content {
+/* Grid */
+.events-grid {
   padding: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+/* Filters row */
+.filters-row {
+  display: flex;
+  gap: 16px;
+  padding: 0 32px 16px;
+}
+
+/* Dropdowns */
+.filters-row select {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.filters-row select:focus {
+  outline: none;
 }

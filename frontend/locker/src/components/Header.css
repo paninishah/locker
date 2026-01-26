@@ -55,3 +55,8 @@
 .landing-admin {
   z-index: 30;
 }
+
+.header-center-placeholder {
+  justify-self: center;
+  width: 420px; /* same width as search bar */
+}

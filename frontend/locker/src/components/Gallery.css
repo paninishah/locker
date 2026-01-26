@@ -1,0 +1,23 @@
+.gallery-title {
+  margin-bottom: 12px;
+}
+
+/* Grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Empty state */
+.gallery-empty {
+  color: #736F4E;
+}
