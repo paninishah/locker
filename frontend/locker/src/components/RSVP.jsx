@@ -1,43 +1,58 @@
 import { useState } from "react";
-import "./RSVP.css";
+import { submitRsvp } from "../api/rsvp";
 
-export default function RSVP() {
-  const [rsvped, setRsvped] = useState(false);
+export default function RSVP({ eventId }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
 
-  if (rsvped) {
-    return (
-      <div className="rsvp-confirmed">
-        <p>✅ You’re RSVP’d for this event.</p>
-      </div>
-    );
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!name.trim()) return;
+
+    try {
+      setStatus("loading");
+      await submitRsvp(eventId, { name, email });
+      setStatus("success");
+      setName("");
+      setEmail("");
+    } catch (err) {
+      console.error("RSVP failed", err);
+      setStatus("error");
+    }
+  };
 
   return (
     <div className="rsvp-box">
       <h2>RSVP</h2>
 
-      <input
-        type="text"
-        placeholder="Your name"
-        value={name}
-        onChange={e => setName(e.target.value)}
-      />
+      {status === "success" ? (
+        <p className="rsvp-success">You’re registered 🎉</p>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <input
+            placeholder="Your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
 
-      <input
-        type="email"
-        placeholder="Email (optional)"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
+          <input
+            placeholder="Email (optional)"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-      <button
-        disabled={!name}
-        onClick={() => setRsvped(true)}
-      >
-        RSVP to this event
-      </button>
+          <button type="submit" disabled={status === "loading"}>
+            {status === "loading" ? "Submitting…" : "RSVP"}
+          </button>
+
+          {status === "error" && (
+            <p className="rsvp-error">Something went wrong.</p>
+          )}
+        </form>
+      )}
     </div>
   );
 }

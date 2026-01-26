@@ -1,152 +1,90 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import CalendarButton from "../../components/CalendarButton";
-import { mockEvents } from "../../data/mockEvents";
+import { createEvent, updateEvent } from "../../api/adminEvents";
+import { getEventById } from "../../api/events";
 import "./EventForm.css";
 
 export default function EventForm() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const isEdit = Boolean(id);
 
-  const isEditMode = Boolean(id);
-  const existingEvent = mockEvents.find(e => e.id === id);
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    date: "",
+    venue: "",
+    tags: "",
+  });
 
-  /* BASIC STATE */
-  const [title, setTitle] = useState(existingEvent?.title || "");
-  const [date, setDate] = useState(existingEvent?.date || "");
-  const [venue, setVenue] = useState(existingEvent?.venue || "");
-  const [committee, setCommittee] = useState(existingEvent?.committee || "");
-  const [tags, setTags] = useState(existingEvent?.tags?.join(", ") || "");
-  const [description, setDescription] = useState(existingEvent?.description || "");
+  useEffect(() => {
+    if (!localStorage.getItem("adminToken")) {
+      navigate("/admin/auth");
+      return;
+    }
 
-  const [gallery, setGallery] = useState(existingEvent?.gallery || []);
-  const [updates, setUpdates] = useState([]);
+    if (isEdit) {
+      getEventById(id).then(e =>
+        setForm({
+          title: e.title,
+          description: e.description,
+          date: e.date.split("T")[0],
+          venue: e.venue,
+          tags: e.tags.join(", "),
+        })
+      );
+    }
+  }, [id, isEdit, navigate]);
 
-  /* RSVP DATA — EDIT MODE ONLY */
-  const mockRsvps = isEditMode
-    ? [
-        { name: "Aditi Shah", email: "aditi@gmail.com" },
-        { name: "Rohan Mehta", email: "" }
-      ]
-    : [];
-
-  /* HANDLERS */
-  const handleAddImage = () => {
-    setGallery([...gallery, "/placeholder.jpg"]);
+  const handleChange = e => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleAddUpdate = () => {
-    setUpdates([...updates, "New update"]);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
+
+    const payload = {
+      ...form,
+      tags: form.tags.split(",").map(t => t.trim()),
+    };
+
+    if (isEdit) {
+      await updateEvent(id, payload);
+    } else {
+      await createEvent(payload);
+    }
+
     navigate("/admin/dashboard");
   };
 
   return (
-    <div className="app-bg event-form-page">
-      <Header showSearch={true} rightAction="logout" />
+    <div className="app-bg">
+      <Header showSearch={false} rightAction="logout" />
 
-      <div className="event-form-container">
-        <h1>{isEditMode ? "Edit Event" : "Create New Event"}</h1>
+      <main className="admin-page">
+        <div className="event-form-container">
+          <h1>{isEdit ? "Edit Event" : "Create Event"}</h1>
 
-        <form className="event-form" onSubmit={handleSubmit}>
-          {/* BASIC INFO */}
-          <section>
-            <label>Title</label>
-            <input value={title} onChange={e => setTitle(e.target.value)} />
+          <form onSubmit={handleSubmit} className="event-form">
+            <input name="title" value={form.title} onChange={handleChange} placeholder="Title" required />
+            <input type="date" name="date" value={form.date} onChange={handleChange} required />
+            <input name="venue" value={form.venue} onChange={handleChange} placeholder="Venue" required />
+            <input name="tags" value={form.tags} onChange={handleChange} placeholder="Tags (comma separated)" />
+            <textarea name="description" value={form.description} onChange={handleChange} placeholder="Description" />
 
-            <label>Date</label>
-            <input type="date" value={date} onChange={e => setDate(e.target.value)} />
-
-            <label>Venue</label>
-            <input value={venue} onChange={e => setVenue(e.target.value)} />
-
-            <label>Committee</label>
-            <input value={committee} disabled />
-
-            <label>Tags (comma separated)</label>
-            <input value={tags} onChange={e => setTags(e.target.value)} />
-          </section>
-
-          {/* DESCRIPTION */}
-          <section>
-            <label>Description</label>
-            <textarea
-              rows="4"
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-            />
-          </section>
-
-          {/* GALLERY */}
-          <section>
-            <div className="section-header">
-              <h2>Gallery</h2>
-              <button type="button" onClick={handleAddImage}>
-                + Add Image
+            <div className="form-actions">
+              <button type="submit" className="primary-btn">
+                {isEdit ? "Save Changes" : "Create Event"}
+              </button>
+              <button type="button" className="secondary-btn" onClick={() => navigate("/admin/dashboard")}>
+                Cancel
               </button>
             </div>
-
-            <div className="gallery-preview">
-              {gallery.map((img, i) => (
-                <img key={i} src={img} alt="gallery" />
-              ))}
-            </div>
-          </section>
-
-          {/* UPDATES */}
-          <section>
-            <div className="section-header">
-              <h2>Updates</h2>
-              <button type="button" onClick={handleAddUpdate}>
-                + Add Update
-              </button>
-            </div>
-
-            {updates.map((u, i) => (
-              <textarea key={i} rows="2" defaultValue={u} />
-            ))}
-          </section>
-
-          {/* RSVP VIEWER — EDIT MODE ONLY */}
-          {isEditMode && (
-            <section>
-              <h2>RSVPs</h2>
-
-              {mockRsvps.length === 0 ? (
-                <p className="empty-state">No RSVPs yet.</p>
-              ) : (
-                <div className="rsvp-list">
-                  {mockRsvps.map((rsvp, i) => (
-                    <div key={i} className="rsvp-item">
-                      <span>{rsvp.name}</span>
-                      {rsvp.email && <span>{rsvp.email}</span>}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </section>
-          )}
-
-          {/* ACTIONS */}
-          <div className="form-actions">
-            <button type="submit" className="primary-btn">
-              {isEditMode ? "Save Changes" : "Create Event"}
-            </button>
-
-            <button
-              type="button"
-              className="secondary-btn"
-              onClick={() => navigate("/admin/dashboard")}
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      </main>
 
       <CalendarButton />
     </div>

@@ -1,45 +1,14 @@
-.event-details-page {
+.event-details-wrapper {
   padding-top: 140px;
-}
-
-.event-details {
   max-width: 900px;
   margin: 0 auto;
-  padding: 32px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
-/* Title */
-.event-title {
-  font-size: 2rem;
-  margin-bottom: 12px;
-}
-
-/* Meta info */
 .event-meta {
   display: flex;
   gap: 16px;
-  font-size: 0.85rem;
-  color: #84ACCE;
+  color: #aaa;
   margin-bottom: 20px;
-}
-
-/* Description */
-.event-description {
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
-
-/* Tags */
-.event-tags {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 32px;
-}
-
-.tag {
-  background-color: #FB8537;
-  color: #040403;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 0.75rem;
 }

@@ -3,34 +3,19 @@ import "./EventCard.css";
 
 export default function EventCard({ event }) {
   const navigate = useNavigate();
+  const eventId = event._id;
 
   return (
     <div
       className="event-card"
-      onClick={() => navigate(`/events/${event.id}`)}
+      onClick={() => navigate(`/events/${eventId}`)}
     >
-      <img
-        src={event.coverImage}
-        alt={event.title}
-        className="event-image"
-      />
+      <div className="event-card-image" />
 
-      <div className="event-body">
-        <p className="event-date">
-          {new Date(event.date).toDateString()}
-        </p>
-
-        <h3 className="event-title">{event.title}</h3>
-
-        <p className="event-committee">{event.committee}</p>
-
-        <div className="event-tags">
-          {event.tags.map((tag, i) => (
-            <span key={i} className="tag">
-              {tag}
-            </span>
-          ))}
-        </div>
+      <div className="event-card-body">
+        <h3>{event.title}</h3>
+        <p>{new Date(event.date).toDateString()}</p>
+        <span>{event.committee}</span>
       </div>
     </div>
   );

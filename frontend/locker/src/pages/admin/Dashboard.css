@@ -1,22 +1,20 @@
-.dashboard-page {
+/* pushes content below fixed header */
+.admin-page {
   padding-top: 140px;
+  padding-bottom: 60px;
 }
 
-.dashboard-content {
-  padding: 32px;
+.admin-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 24px;
 }
 
-.dashboard-header {
+.admin-header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
-}
-
-.empty-state {
-  color: #736F4E;
+  margin-bottom: 32px;
 }
 
 .admin-event-card {
@@ -24,17 +22,17 @@
 }
 
 .edit-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-
-  background-color: #F9DC5C;
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background: #84ACCE;
   color: #040403;
-  border: none;
-  border-radius: 999px;
-  padding: 6px 12px;
-
-  font-size: 0.75rem;
   font-weight: 600;
+  border: none;
   cursor: pointer;
+}
+
+.edit-btn:hover {
+  opacity: 0.9;
 }

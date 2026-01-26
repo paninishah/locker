@@ -2,21 +2,29 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminAuth.css";
 import Header from "../../components/Header";
-
+import { adminLogin } from "../../api/adminAuth";
 
 export default function AdminAuth() {
-  const [mode, setMode] = useState("login"); // login | signup
+  const [mode, setMode] = useState("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    navigate("/admin/dashboard");
-  };
 
-  const handleSignup = (e) => {
-    e.preventDefault();
-    // ignore for now
-    alert("Signup will be enabled later.");
+    try {
+      const data = await adminLogin(email, password);
+
+      localStorage.setItem("adminToken", data.token);
+      localStorage.setItem("adminCommittee", data.committee);
+
+      navigate("/admin/dashboard");
+    } catch (err) {
+      console.error(err);
+      alert("Login failed");
+    }
   };
 
   return (
@@ -24,15 +32,16 @@ export default function AdminAuth() {
       <Header showLogo={true} showSearch={false} rightAction="none" />
 
       <div className="auth-card">
-        {/* Tabs */}
         <div className="auth-tabs">
           <button
+            type="button"
             className={mode === "login" ? "active" : ""}
             onClick={() => setMode("login")}
           >
             Login
           </button>
           <button
+            type="button"
             className={mode === "signup" ? "active" : ""}
             onClick={() => setMode("signup")}
           >
@@ -40,51 +49,28 @@ export default function AdminAuth() {
           </button>
         </div>
 
-        {/* Forms */}
-        {mode === "login" ? (
+        {mode === "login" && (
           <form className="auth-form" onSubmit={handleLogin}>
             <h1>Admin Login</h1>
 
             <input
               type="email"
               placeholder="committee email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
 
             <input
               type="password"
               placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
 
             <button type="submit" className="primary-btn">
               Log in
-            </button>
-          </form>
-        ) : (
-          <form className="auth-form" onSubmit={handleSignup}>
-            <h1>Committee Sign Up</h1>
-
-            <input
-              type="text"
-              placeholder="committee name"
-              required
-            />
-
-            <input
-              type="email"
-              placeholder="committee email"
-              required
-            />
-
-            <input
-              type="password"
-              placeholder="password"
-              required
-            />
-
-            <button type="submit" className="primary-btn">
-              Sign up
             </button>
           </form>
         )}

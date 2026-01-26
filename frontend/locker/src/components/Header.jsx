@@ -4,7 +4,8 @@ import "./Header.css";
 export default function Header({
   showLogo = true,
   showSearch = false,
-  rightAction = "admin" // "admin" | "logout" | "none"
+  rightAction = "admin", // "admin" | "logout" | "none"
+  onSearchChange,        // ✅ NEW (optional)
 }) {
   const navigate = useNavigate();
 
@@ -14,7 +15,9 @@ export default function Header({
     }
 
     if (rightAction === "logout") {
-      // frontend-only logout for now
+      // ✅ proper logout cleanup
+      localStorage.removeItem("adminToken");
+      localStorage.removeItem("adminCommittee");
       navigate("/admin/auth");
     }
   };
@@ -40,6 +43,7 @@ export default function Header({
           type="text"
           className="search-bar"
           placeholder="search events"
+          onChange={(e) => onSearchChange?.(e.target.value)}
         />
       ) : (
         <div className="header-center-placeholder" />

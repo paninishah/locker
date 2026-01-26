@@ -1,63 +1,94 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import EventCard from "../../components/EventCard";
 import CalendarButton from "../../components/CalendarButton";
-import { mockEvents } from "../../data/mockEvents";
+import { getAdminEvents } from "../../api/adminEvents";
 import "./Dashboard.css";
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const committee = localStorage.getItem("adminCommittee");
 
-  // FRONTEND-ONLY: mock logged-in admin committee
-  const adminCommittee = "Technical";
+  const [events, setEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const adminEvents = mockEvents.filter(
-    (event) => event.committee === adminCommittee
-  );
+  useEffect(() => {
+    if (!localStorage.getItem("adminToken")) {
+      navigate("/admin/auth");
+      return;
+    }
+
+    const fetchEvents = async () => {
+      const data = await getAdminEvents();
+      const ownEvents = data.filter(e => e.committee === committee);
+      setEvents(ownEvents);
+      setFilteredEvents(ownEvents);
+      setLoading(false);
+    };
+
+    fetchEvents();
+  }, [committee, navigate]);
+
+  useEffect(() => {
+    const q = search.toLowerCase();
+
+    const result = events.filter(
+      e =>
+        e.title.toLowerCase().includes(q) ||
+        e.tags?.some(t => t.toLowerCase().includes(q))
+    );
+
+    setFilteredEvents(result);
+  }, [search, events]);
 
   return (
-    <div className="app-bg dashboard-page">
-      {/* Header */}
-      <Header showSearch={true} rightAction="logout" />
+    <div className="app-bg">
+      {/* pass search handler */}
+      <Header
+        showSearch={true}
+        rightAction="logout"
+        onSearchChange={setSearch}
+      />
 
-      {/* Main content */}
-      <div className="dashboard-content">
-        <div className="dashboard-header">
-          <h1>Your Events</h1>
-
-          <button
-            className="primary-btn"
-            onClick={() => navigate("/admin/events/new")}
-          >
-            + Create New Event
-          </button>
-        </div>
-
-        {adminEvents.length === 0 ? (
-          <p className="empty-state">
-            No events created for your committee yet.
-          </p>
-        ) : (
-          <div className="events-grid">
-            {adminEvents.map((event) => (
-              <div key={event.id} className="admin-event-card">
-                <EventCard event={event} />
-
-                <button
-                  className="edit-btn"
-                  onClick={() =>
-                    navigate(`/admin/events/${event.id}/edit`)
-                  }
-                >
-                  Edit
-                </button>
-              </div>
-            ))}
+      <main className="admin-page">
+        <div className="admin-container">
+          <div className="admin-header-row">
+            <h1>Your Events</h1>
+            <button
+              className="primary-btn"
+              onClick={() => navigate("/admin/events/new")}
+            >
+              + Create Event
+            </button>
           </div>
-        )}
-      </div>
 
-      {/* Floating calendar */}
+          {loading ? (
+            <p className="muted">Loading events…</p>
+          ) : filteredEvents.length === 0 ? (
+            <p className="muted">No matching events.</p>
+          ) : (
+            <div className="events-grid">
+              {filteredEvents.map(event => (
+                <div key={event._id} className="admin-event-card">
+                  <EventCard event={event} />
+                  <button
+                    className="edit-btn"
+                    onClick={() =>
+                      navigate(`/admin/events/${event._id}/edit`)
+                    }
+                  >
+                    Edit
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+
       <CalendarButton />
     </div>
   );
