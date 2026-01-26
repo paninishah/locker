@@ -27,7 +27,7 @@ export default function Events() {
 
   return (
     <div className="app-bg events-page">
-      <Header showSearch />
+      <Header showSearch={true} rightAction="admin" />
 
       {/* Filters row */}
       <div className="filters-row">

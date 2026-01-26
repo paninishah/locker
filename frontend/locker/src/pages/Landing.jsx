@@ -7,7 +7,13 @@ export default function Landing() {
   return (
     <div className="app-bg landing">
       {/* Admin button */}
-      <button className="admin-btn landing-admin">Admin</button>
+      <button
+        className="admin-btn landing-admin"
+        onClick={() => navigate("/admin/auth")}
+      >
+        Admin
+      </button>
+
 
       {/* Center content */}
       <div className="center-content">

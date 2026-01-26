@@ -1,0 +1,76 @@
+.admin-auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card */
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  background-color: #0f0f0f;
+  border-radius: 16px;
+  padding: 28px;
+}
+
+/* Tabs */
+.auth-tabs {
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.auth-tabs button {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #736F4E;
+}
+
+.auth-tabs button.active {
+  color: #FB8537;
+  border-bottom: 2px solid #FB8537;
+}
+
+/* Form */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-form h1 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+/* Inputs */
+.auth-form input {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+/* Button */
+.primary-btn {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 999px;
+  border: none;
+
+  background-color: #84ACCE;
+  color: #040403;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  box-shadow: 0 8px 20px rgba(132, 172, 206, 0.45);
+}

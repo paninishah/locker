@@ -1,12 +1,40 @@
+import { useNavigate } from "react-router-dom";
 import "./Header.css";
 
-export default function Header({ showSearch = false }) {
+export default function Header({
+  showLogo = true,
+  showSearch = false,
+  rightAction = "admin" // "admin" | "logout" | "none"
+}) {
+  const navigate = useNavigate();
+
+  const handleRightAction = () => {
+    if (rightAction === "admin") {
+      navigate("/admin/auth");
+    }
+
+    if (rightAction === "logout") {
+      // frontend-only logout for now
+      navigate("/admin/auth");
+    }
+  };
+
   return (
     <header className="header">
-      {/* Left: Logo */}
-      <img src="/locker.svg" alt="locker" className="header-logo" />
+      {/* LEFT */}
+      {showLogo ? (
+        <img
+          src="/locker.svg"
+          alt="locker"
+          className="header-logo"
+          onClick={() => navigate("/")}
+          style={{ cursor: "pointer" }}
+        />
+      ) : (
+        <div />
+      )}
 
-      {/* Center: Search OR placeholder */}
+      {/* CENTER */}
       {showSearch ? (
         <input
           type="text"
@@ -17,8 +45,14 @@ export default function Header({ showSearch = false }) {
         <div className="header-center-placeholder" />
       )}
 
-      {/* Right: Admin */}
-      <button className="admin-btn">Admin</button>
+      {/* RIGHT */}
+      {rightAction !== "none" ? (
+        <button className="admin-btn" onClick={handleRightAction}>
+          {rightAction === "admin" ? "Admin" : "Sign out"}
+        </button>
+      ) : (
+        <div />
+      )}
     </header>
   );
 }
