@@ -1,58 +1,41 @@
 import { useState } from "react";
-import { submitRsvp } from "../api/rsvp";
+import "./RSVP.css";
 
-export default function RSVP({ eventId }) {
+export default function RSVP() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | loading | success | error
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!name.trim()) return;
-
-    try {
-      setStatus("loading");
-      await submitRsvp(eventId, { name, email });
-      setStatus("success");
-      setName("");
-      setEmail("");
-    } catch (err) {
-      console.error("RSVP failed", err);
-      setStatus("error");
-    }
+    alert("RSVP submitted!");
+    setName("");
+    setEmail("");
   };
 
   return (
-    <div className="rsvp-box">
+    <div className="rsvp-section">
       <h2>RSVP</h2>
 
-      {status === "success" ? (
-        <p className="rsvp-success">You’re registered 🎉</p>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <input
-            placeholder="Your name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+      <form className="rsvp-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
-          <input
-            placeholder="Email (optional)"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        <input
+          type="email"
+          placeholder="email (optional)"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-          <button type="submit" disabled={status === "loading"}>
-            {status === "loading" ? "Submitting…" : "RSVP"}
-          </button>
-
-          {status === "error" && (
-            <p className="rsvp-error">Something went wrong.</p>
-          )}
-        </form>
-      )}
+        <button type="submit" className="primary-btn">
+          RSVP
+        </button>
+      </form>
     </div>
   );
 }

@@ -1,53 +1,42 @@
-.rsvp-box {
-  margin-top: 40px;
+/* outer RSVP box */
+.rsvp-section {
+  margin: 0 auto;
   padding: 24px;
-  background-color: #0f0f0f;
-  border-radius: 14px;
-  max-width: 420px;
-}
+  border-radius: 16px;
+  border: 1px solid #736F4E;
+  background: rgba(255, 255, 255, 0.02);
 
-.rsvp-box h2 {
-  margin-bottom: 12px;
-}
-
-/* Inputs */
-.rsvp-box input {
+  max-width: 520px;   /* 👈 smaller, controlled width */
   width: 100%;
-  padding: 10px 14px;
-  margin-bottom: 12px;
-
-  border-radius: 8px;
-  border: none;
-  outline: none;
-
-  background-color: #1a1a1a;
-  color: #ffffff;
 }
 
-/* Button */
-.rsvp-box button {
-  width: 100%;
-  padding: 12px;
-
-  background-color: #FB8537;
-  color: #040403;
-  border: none;
-  border-radius: 999px;
-
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.rsvp-box button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Confirmed */
-.rsvp-confirmed {
-  margin-top: 40px;
-  padding: 20px;
-  background-color: #1a1a1a;
-  border-radius: 14px;
+/* title */
+.rsvp-section h2 {
   color: #F9DC5C;
+  margin-bottom: 14px;
+  font-size: 1.35rem;
+  text-align: center;
+}
+
+/* form */
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* inputs */
+.rsvp-form input {
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: #040403;
+  border: 1px solid #736F4E;
+  color: white;
+  font-size: 0.95rem;
+}
+
+/* button */
+.rsvp-form button {
+  align-self: center;
+  margin-top: 6px;
 }
