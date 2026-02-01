@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://locker-backend-228p.onrender.com/api";
+
 
 export const submitRsvp = async (eventId, payload) => {
   const res = await axios.post(

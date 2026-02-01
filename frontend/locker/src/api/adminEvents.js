@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_BASE = "http://localhost:5000/api/events";
+const API_BASE = "https://locker-backend-228p.onrender.com/api";
+
 
 const authHeader = () => ({
   headers: {
