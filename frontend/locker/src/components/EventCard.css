@@ -50,3 +50,13 @@
   border-radius: 999px;
   font-size: 0.75rem;
 }
+
+.event-card-image {
+  width: 100%;
+  height: 180px;          /* 🔒 fixed height */
+  object-fit: cover;     /* crops instead of stretching */
+  object-position: center;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  background-color: #111; /* fallback if image loads slow */
+}

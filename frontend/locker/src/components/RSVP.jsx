@@ -1,15 +1,31 @@
 import { useState } from "react";
+import { submitRsvp } from "../api/rsvp";
 import "./RSVP.css";
 
-export default function RSVP() {
+export default function RSVP({ eventId }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("RSVP submitted!");
-    setName("");
-    setEmail("");
+    setError("");
+    setSuccess("");
+    setLoading(true);
+
+    try {
+      await submitRsvp(eventId, { name, email });
+      setSuccess("RSVP submitted successfully!");
+      setName("");
+      setEmail("");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to submit RSVP. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -32,10 +48,17 @@ export default function RSVP() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <button type="submit" className="primary-btn">
-          RSVP
+        <button type="submit" className="primary-btn" disabled={loading}>
+          {loading ? "Submitting..." : "RSVP"}
         </button>
       </form>
+
+      {success && (
+        <p style={{ color: "#84ACCE", marginTop: "12px" }}>{success}</p>
+      )}
+      {error && (
+        <p style={{ color: "#FB8537", marginTop: "12px" }}>{error}</p>
+      )}
     </div>
   );
 }
