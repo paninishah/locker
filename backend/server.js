@@ -11,16 +11,13 @@ connectDB();
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
 app.use("/api/events", eventRoutes);
 app.use("/api/events", rsvpRoutes);
 app.use("/api/admin", adminAuthRoutes);
 
-// Test route
 app.get("/", (req, res) => {
   res.send("Locker API is running");
 });
