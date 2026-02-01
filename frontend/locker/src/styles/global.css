@@ -1,4 +1,4 @@
-/* RESET */
+
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +11,7 @@ html, body {
   color: #ffffff;
 }
 
-/* DOT BACKGROUND */
+/* dot bg */
 .app-bg {
   min-height: 100vh;
   background-color: #040403;

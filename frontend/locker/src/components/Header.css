@@ -13,12 +13,12 @@
   z-index: 20;
 }
 
-/* LOGO */
+
 .header-logo {
   height: 124px;
 }
 
-/* SEARCH BAR */
+
 .search-bar {
   justify-self: center;
   width: 420px;
@@ -33,7 +33,7 @@
   font-size: 0.95rem;
 }
 
-/* ADMIN BUTTON */
+
 .admin-btn {
   background-color: #84ACCE;
   color: #040403;

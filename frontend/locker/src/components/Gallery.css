@@ -2,7 +2,7 @@
   margin-bottom: 12px;
 }
 
-/* Grid */
+
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -17,7 +17,7 @@
   cursor: pointer;
 }
 
-/* Empty state */
+
 .gallery-empty {
   color: #736F4E;
 }

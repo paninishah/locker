@@ -5,14 +5,7 @@ import protect from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-/* =========================
-   PUBLIC ROUTES (STUDENTS)
-========================= */
 
-/**
- * GET /api/events
- * Public – get all events
- */
 router.get("/", async (req, res) => {
   try {
     const events = await Event.find().sort({ date: 1 });
@@ -22,10 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-/**
- * GET /api/events/:id
- * Public – get single event
- */
+//students
 router.get("/:id", async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ message: "Invalid event ID" });
@@ -44,14 +34,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-/* =========================
-   ADMIN ROUTES (PROTECTED)
-========================= */
-
-/**
- * POST /api/events
- * Admin – create event
- */
+//admin
 router.post("/", protect, async (req, res) => {
   try {
     const {
@@ -80,10 +63,7 @@ router.post("/", protect, async (req, res) => {
   }
 });
 
-/**
- * PUT /api/events/:id
- * Admin – edit own event
- */
+//put
 router.put("/:id", protect, async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ message: "Invalid event ID" });
@@ -110,10 +90,8 @@ router.put("/:id", protect, async (req, res) => {
   }
 });
 
-/**
- * DELETE /api/events/:id
- * Admin – delete own event
- */
+
+//delete
 router.delete("/:id", protect, async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ message: "Invalid event ID" });

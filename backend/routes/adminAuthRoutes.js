@@ -11,10 +11,7 @@ const generateToken = (id) => {
   });
 };
 
-/**
- * POST /api/admin/signup
- * (you can ignore UI for now)
- */
+//signup, only ui
 router.post("/signup", async (req, res) => {
   try {
     const { committee, email, password } = req.body;
@@ -52,9 +49,7 @@ router.post("/signup", async (req, res) => {
 });
 
 
-/**
- * POST /api/admin/login
- */
+//admin login
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 

@@ -1,11 +1,11 @@
-/* BASE */
+
 .landing {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
 }
 
-/* ADMIN */
+
 .landing-admin {
   position: fixed;
   top: 24px;
@@ -20,7 +20,7 @@
   z-index: 20;
 }
 
-/* ORBIT CONTAINER */
+/* orbit container!!! */
 .poster-orbit {
   position: absolute;
   top: 7vh;
@@ -31,7 +31,7 @@
   pointer-events: none; /* posters still clickable individually */
 }
 
-/* POSTERS */
+
 .poster {
   position: absolute;
   left: 50%;
@@ -51,7 +51,7 @@
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
 }
 
-/* CONTENT */
+
 .landing-content {
   position: relative;
   z-index: 5;

@@ -23,8 +23,8 @@ export default function Landing() {
   }, []);
 
   useEffect(() => {
-    const radius = 500;       // 🔧 change this to adjust circle size
-    const speed = 0.003;    // 🔧 rotation speed
+    const radius = 500;       // adjust circle size
+    const speed = 0.003;    //rotation speed
 
     const animate = () => {
       anglesRef.current = anglesRef.current.map(a => a + speed);
@@ -34,7 +34,7 @@ export default function Landing() {
         const angle = anglesRef.current[i];
 
         const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * 60; // vertical squash = perspective
+        const y = Math.sin(angle) * 60; 
         const rotate = angle * (180 / Math.PI);
 
         poster.style.transform = `

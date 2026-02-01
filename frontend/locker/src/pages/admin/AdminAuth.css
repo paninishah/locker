@@ -5,7 +5,7 @@
   justify-content: center;
 }
 
-/* Card */
+
 .auth-card {
   width: 100%;
   max-width: 380px;
@@ -14,7 +14,7 @@
   padding: 28px;
 }
 
-/* Tabs */
+
 .auth-tabs {
   display: flex;
   margin-bottom: 24px;
@@ -35,7 +35,7 @@
   border-bottom: 2px solid #FB8537;
 }
 
-/* Form */
+
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -47,7 +47,7 @@
   margin-bottom: 10px;
 }
 
-/* Inputs */
+
 .auth-form input {
   padding: 12px 14px;
   border-radius: 8px;
@@ -58,7 +58,7 @@
   color: #ffffff;
 }
 
-/* Button */
+
 .primary-btn {
   margin-top: 12px;
   padding: 12px;

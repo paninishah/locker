@@ -7,7 +7,7 @@
   height: 56px;
   border-radius: 50%;
 
-  background-color: #84ACCE; /* blue */
+  background-color: #84ACCE;
   border: none;
 
   display: flex;
@@ -23,7 +23,7 @@
   height: 24px;
 }
 
-/* Optional hover (subtle) */
+
 .calendar-btn:hover {
   box-shadow: 0 8px 20px rgba(132, 172, 206, 0.45);
 }

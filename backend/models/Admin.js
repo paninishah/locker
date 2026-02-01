@@ -24,7 +24,7 @@ const adminSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// ✅ CORRECT async pre-save hook (NO next())
+//async pre-save hook
 adminSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
   this.password = await bcrypt.hash(this.password, 10);

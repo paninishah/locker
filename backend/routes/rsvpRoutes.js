@@ -6,10 +6,7 @@ import mongoose from "mongoose";
 
 const router = express.Router();
 
-/**
- * POST /api/events/:id/rsvp
- * Public – create RSVP
- */
+//students RSVP to event
 router.post("/:id/rsvp", async (req, res) => {
   try {
     const { name, email } = req.body;
@@ -41,10 +38,7 @@ router.post("/:id/rsvp", async (req, res) => {
 });
 
 
-/**
- * GET /api/events/:id/rsvps
- * Admin – view RSVPs for an event
- */
+//get RSVPs for an event
 router.get("/:id/rsvps", async (req, res) => {
   try {
     const rsvps = await RSVP.find({ event: req.params.id })

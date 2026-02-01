@@ -55,7 +55,7 @@ export default function EventDetails() {
               alt="poster"
               style={{
                 width: "100%",
-                height: "320px",        // 🔒 fixed hero height
+                height: "320px",        
                 objectFit: "cover",
                 objectPosition: "center",
                 borderRadius: "16px",

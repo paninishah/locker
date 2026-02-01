@@ -4,8 +4,8 @@ import "./Header.css";
 export default function Header({
   showLogo = true,
   showSearch = false,
-  rightAction = "admin", // "admin" | "logout" | "none"
-  onSearchChange,        // ✅ NEW (optional)
+  rightAction = "admin", 
+  onSearchChange,        
 }) {
   const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ export default function Header({
     }
 
     if (rightAction === "logout") {
-      // ✅ proper logout cleanup
+    
       localStorage.removeItem("adminToken");
       localStorage.removeItem("adminCommittee");
       navigate("/admin/auth");

@@ -9,7 +9,7 @@
   padding: 0 24px;
 }
 
-/* FILTERS */
+
 .filters-row {
   display: flex;
   gap: 14px;
@@ -37,7 +37,7 @@
   cursor: pointer;
 }
 
-/* EVENTS GRID */
+
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
