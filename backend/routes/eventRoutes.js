@@ -16,6 +16,21 @@ router.get("/", async (req, res) => {
 });
 
 //students
+
+// admin - get only their events
+router.get("/admin", protect, async (req, res) => {
+  try {
+    const events = await Event.find({
+      committee: req.admin.committee,
+    }).sort({ date: 1 });
+
+    res.json(events);
+  } catch (error) {
+    console.error("FETCH ADMIN EVENTS ERROR:", error);
+    res.status(500).json({ message: "Failed to fetch admin events" });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ message: "Invalid event ID" });

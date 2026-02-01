@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const API_BASE = "https://locker-backend-228p.onrender.com/api";
-
+const API_BASE = "https://locker-backend-228p.onrender.com/api/events";
 
 const authHeader = () => ({
   headers: {
@@ -10,7 +9,7 @@ const authHeader = () => ({
 });
 
 export const getAdminEvents = async () => {
-  const res = await axios.get(API_BASE);
+  const res = await axios.get(`${API_BASE}/admin`, authHeader());
   return res.data;
 };
 
